@@ -142,14 +142,9 @@ app.post('/api/chat', async (req, res) => {
   }
 });
 
-// Serve static files in production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'dist')));
-  
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist/index.html'));
-  });
-}
+// This is an API-only server - no static file serving needed
+// If you need to serve a frontend, make sure to build your frontend 
+// and place the built files in a 'dist' directory
 
 // Start server
 app.listen(PORT, () => {
