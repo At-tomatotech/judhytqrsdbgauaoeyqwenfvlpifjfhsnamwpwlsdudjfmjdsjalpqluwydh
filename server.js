@@ -82,14 +82,17 @@ app.post('/api/chat', async (req, res) => {
   }
 });
 
-// Serve static files in production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'dist')));
-  
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist/index.html'));
+// Health check endpoint for production
+app.get('/', (req, res) => {
+  res.json({ 
+    message: 'Fitness Chat API is running!',
+    status: 'healthy',
+    endpoints: {
+      test: '/api/test',
+      chat: '/api/chat'
+    }
   });
-}
+});
 
 // Start server
 app.listen(PORT, () => {
